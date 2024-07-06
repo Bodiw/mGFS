@@ -44,3 +44,10 @@ Si se quiere ejecutar maestro y cliente, basta con ejecutar el maestro, y poster
 Un pequeño error que suele ocurrir, es que al intentar ejecutar el cliente después de ejecutar el maestro, el primer intento de compilación falla porque hay un recurso abierto, pero al segundo intento funciona. 
 
 Para breakpoints, consulta de variables, etc... eso entra en el campo de conocimiento del depurador de VSCode y no conviene explicar el funcionamiento aqui
+
+### Entrega
+La práctica requiere de entregar unos ficheros específicos en carpetas específicas en un servidor específico.
+Basta con modificar el script de `entrega.sh`, incluyendo el usuario y host/maquina correspondiente y ejecutarlo.
+Este script únicamente copia los ficheros del origen al destino, por lo que el alumno sigue necesitando inicar sesión ssh la máquina y realizar la entrega en remoto.
+
+El comando scp del script **SOBREESCRIBE** los ficheros destino, por lo que el alumno debe tener cuidado de no sobreescribir algo de importancia, haciendo una copia previa, o siendo consciente, de que todo su codigo está en local, y solo usa el remoto para la entrega.
