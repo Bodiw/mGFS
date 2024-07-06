@@ -1,0 +1,178 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build libmgfs.so",
+            "type": "cppbuild",
+            "command": "/usr/bin/gcc",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-Wall",
+                "-g",
+                "-fPIC",
+                "-Ilib/include",
+                "src/common/common.c",
+                "src/common/common_cln.c",
+                "src/mgfs_lib/mgfs.c",
+                "src/master_node/master.h",
+                "src/server_node/server.h",
+                "-shared",
+                "-o",
+                "lib/libmgfs.so"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "Build libutil.so",
+            "type": "cppbuild",
+            "command": "/usr/bin/gcc",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-Wall",
+                "-g",
+                "-fPIC",
+                "-shared",
+                "src/util/array.c",
+                "src/util/map.c",
+                "-o",
+                "lib/libutil.so",
+                "-lpthread"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "Build server",
+            "type": "cppbuild",
+            "command": "/usr/bin/gcc",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-Wall",
+                "-g",
+                "-Ilib/include",
+                "src/common/common.c",
+                "src/common/common_srv.c",
+                "src/common/common_cln.c",
+                "src/server_node/server.c",
+                "src/server_node/server.h",
+                "src/master_node/master.h",
+                "-o",
+                "out/server",
+                "-lpthread"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "Build master",
+            "type": "cppbuild",
+            "command": "/usr/bin/gcc",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-Wall",
+                "-g",
+                "-Ilib/include",
+                "src/master_node/master.c",
+                "src/common/common.c",
+                "src/common/common_srv.c",
+                "-o",
+                "out/master",
+                "-lpthread",
+                "lib/libutil.so"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "Build test-client",
+            "type": "cppbuild",
+            "command": "/usr/bin/gcc",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-Wall",
+                "-g",
+                "-Ilib/include",
+                "src/clients/test.c",
+                "-o",
+                "out/test-client",
+                "lib/libmgfs.so",
+                "-Wl,-rpath-link=lib"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "Build cp-client",
+            "type": "cppbuild",
+            "command": "/usr/bin/gcc",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-Wall",
+                "-g",
+                "-Ilib/include",
+                "src/clients/cp_from_local_to_mGFS.c",
+                "-o",
+                "out/cp-client",
+                "lib/libmgfs.so",
+                "-Wl,-rpath-link=lib"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "Build all",
+            "dependsOn": [
+                "Build libmgfs.so",
+                "Build libutil.so",
+                "Build server",
+                "Build master",
+                "Build test-client",
+                "Build cp-client"
+            ],
+            "problemMatcher": []
+        }
+    ]
+}
